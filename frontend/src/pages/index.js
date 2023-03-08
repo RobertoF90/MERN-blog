@@ -4,9 +4,20 @@ import { Inter } from 'next/font/google';
 import styles from '@/styles/Home.module.css';
 import Link from 'next/link';
 
+import Layout from '../components/layout';
+
+import useSWR from 'swr';
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
+  const { data, error, isLoading } = useSWR(
+    'http://localhost:5000/api/v1/posts',
+    fetcher
+  );
+
   return (
     <>
       <Head>
@@ -16,49 +27,16 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div className={styles.description}>
-          <h1 className="title">
-            Read <Link href="/posts/first-post">this page!</Link>
-          </h1>
+        <h2>
+          {data?.map((post) => (
+            <div>
+              <div key={post.id}>{post.title}</div>
+              <div key={post.id}>{post.text}</div>
 
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
-          </div>
-        </div>
-
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
-            />
-          </div>
-        </div>
+              <Link href={`/posts/${post._id}`}>Read Post</Link>
+            </div>
+          ))}
+        </h2>
       </main>
     </>
   );
