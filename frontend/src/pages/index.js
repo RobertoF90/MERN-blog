@@ -29,9 +29,9 @@ export default function Home() {
       <main className={styles.main}>
         <h2>
           {data?.map((post) => (
-            <div>
-              <div key={post.id}>{post.title}</div>
-              <div key={post.id}>{post.text}</div>
+            <div key={post._id}>
+              <div>{post.title}</div>
+              <div>{post.text}</div>
 
               <Link href={`/posts/${post._id}`}>Read Post</Link>
             </div>
