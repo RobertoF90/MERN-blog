@@ -1,17 +1,24 @@
 export async function getAllPostIds() {
-  console.log('hello');
-  const res = await fetch('http://localhost:5000/api/v1/posts');
-  const posts = await res.json();
-  console.log(posts);
+  try {
+    console.log('hello');
+    const res = await fetch('http://localhost:5000/api/v1/posts');
 
-  return posts.map((post) => {
-    console.log(post);
-    return {
-      params: {
-        id: post._id,
-      },
-    };
-  });
+    if (!res.ok) {
+      throw new Error('Failed to fetch data');
+    }
+
+    const posts = await res.json();
+    return posts.map((post) => {
+      console.log(post);
+      return {
+        params: {
+          id: post._id,
+        },
+      };
+    });
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 export async function getPostData(id) {
