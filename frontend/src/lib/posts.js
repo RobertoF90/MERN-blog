@@ -1,7 +1,9 @@
+import axios from 'axios';
+
 export async function getAllPostIds() {
   try {
     console.log('hello');
-    const res = await fetch('http://localhost:5000/api/v1/posts');
+    const res = await axios.get('http://localhost:5000/api/v1/posts');
 
     if (!res.ok) {
       throw new Error('Failed to fetch data');
@@ -22,7 +24,7 @@ export async function getAllPostIds() {
 }
 
 export async function getPostData(id) {
-  const res = await fetch(`http://localhost:5000/api/v1/posts/${id}`);
+  const res = await axios.get(`http://localhost:5000/api/v1/posts/${id}`);
   const post = await res.json();
   return {
     id,
