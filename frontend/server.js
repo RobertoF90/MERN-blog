@@ -7,6 +7,13 @@ const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
+const mongoose = require('mongoose');
+mongoose
+  .connect(process.env.DATABASE, {
+    useNewUrlParser: true,
+  })
+  .then(() => console.log('Database connected!'));
+
 const apiPaths = {
   '/api': {
     target: 'http://localhost:5000',

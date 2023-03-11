@@ -1,33 +1,33 @@
-import axios from 'axios';
+// import axios from 'axios';
 
-export async function getAllPostIds() {
-  try {
-    console.log('hello');
-    const res = await axios.get('http://localhost:5000/api/v1/posts');
+// export async function getAllPostIds() {
+//   try {
+//     console.log('hello');
+//     const res = await fetch('http://127.0.0.1:1337/api/posts');
 
-    if (!res.ok) {
-      throw new Error('Failed to fetch data');
-    }
+//     if (!res.ok) {
+//       throw new Error('Failed to fetch data');
+//     }
 
-    const posts = await res.json();
-    return posts.map((post) => {
-      console.log(post);
-      return {
-        params: {
-          id: post._id,
-        },
-      };
-    });
-  } catch (err) {
-    console.log(err);
-  }
-}
+//     const posts = await res.json();
+//     return posts.data.map((post) => {
+//       console.log(post.id);
+//       return {
+//         params: {
+//           slug: post.id.toString(),
+//         },
+//       };
+//     });
+//   } catch (err) {
+//     console.log(err);
+//   }
+// }
 
-export async function getPostData(id) {
-  const res = await axios.get(`http://localhost:5000/api/v1/posts/${id}`);
-  const post = await res.json();
-  return {
-    id,
-    post,
-  };
-}
+// export async function getPostData(id) {
+//   const res = await fetch(`http://localhost:1337/api/posts/post-${id}`);
+//   const post = await res.json();
+//   return {
+//     id,
+//     post,
+//   };
+// }
