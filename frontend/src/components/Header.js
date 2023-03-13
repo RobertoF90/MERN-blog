@@ -8,8 +8,15 @@ export default function Header() {
       <div>
         <Link href={'/'}>Home</Link>
       </div>
-
       <Search />
+
+      <nav>
+        <ul>
+          <li>
+            <Link href="/posts/add">Add Post</Link>
+          </li>
+        </ul>
+      </nav>
     </header>
   );
 }
