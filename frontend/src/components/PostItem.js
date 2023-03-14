@@ -8,12 +8,15 @@ function PostItem({ post }) {
       <div>{post.attributes.title}</div>
       <div>{post.attributes.text}</div>
 
-      <Image
-        src={post.attributes.image.data.attributes.url}
-        alt={'image'}
-        width={144}
-        height={144}
-      ></Image>
+      {/* TESTING */}
+      {post.attributes.image.data && (
+        <Image
+          src={post.attributes.image.data.attributes.url}
+          alt={'image'}
+          width={144}
+          height={144}
+        ></Image>
+      )}
 
       <Link href={`/posts/${post.attributes.slug}`}>Read</Link>
     </div>

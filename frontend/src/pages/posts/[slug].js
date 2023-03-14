@@ -1,12 +1,38 @@
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Layout from '../../components/layout';
 import { API_URL } from '@/config';
+import { useRouter } from 'next/router';
 
 import Link from 'next/link';
 
 export default function Post({ post }) {
+  const router = useRouter();
+  const deleteEvent = async (e) => {
+    if (confirm('Are you sure?')) {
+      const res = await fetch(`${API_URL}/api/posts/${post.id}`, {
+        method: 'DELETE',
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        toast.error(data.message);
+      } else {
+        router.push('/');
+      }
+    }
+  };
+
   return (
     <Layout>
-      {post.attributes.title}
+      <div>
+        <button>
+          <Link href={`/posts/edit/${post.id}`}>Edit</Link>
+        </button>
+        <button onClick={deleteEvent}>Delete</button>
+      </div>
+      <h1>{post.attributes.title}</h1>
 
       <br />
       {post.attributes.text}
