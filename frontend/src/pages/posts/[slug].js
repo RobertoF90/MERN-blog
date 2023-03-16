@@ -73,7 +73,7 @@ export async function getServerSideProps({ query: { slug } }) {
 
   return {
     props: {
-      evt: posts,
+      post: posts.data[0],
     },
   };
 }
