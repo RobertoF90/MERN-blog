@@ -43,26 +43,36 @@ export default function Post({ post }) {
   );
 }
 
-export async function getStaticPaths() {
-  const res = await fetch(`${API_URL}/api/posts`);
+// export async function getStaticPaths() {
+//   const res = await fetch(`${API_URL}/api/posts`);
+//   const posts = await res.json();
+
+//   const paths = posts.data.map((post) => ({
+//     params: { slug: post.attributes.slug },
+//   }));
+//   return {
+//     paths,
+//     fallback: true,
+//   };
+// }
+
+// export async function getStaticProps({ params: { slug } }) {
+//   const res = await fetch(`${API_URL}/api/posts?filters\[Slug\][$eq]=${slug}`);
+
+//   const posts = await res.json();
+
+//   return {
+//     props: { post: posts.data[0] },
+//     revalidate: 1,
+//   };
+// }
+export async function getServerSideProps({ query: { slug } }) {
+  const res = await fetch(`${API_URL}/api/posts?slug=${slug}`);
   const posts = await res.json();
 
-  const paths = posts.data.map((post) => ({
-    params: { slug: post.attributes.slug },
-  }));
   return {
-    paths,
-    fallback: true,
-  };
-}
-
-export async function getStaticProps({ params: { slug } }) {
-  const res = await fetch(`${API_URL}/api/posts?filters\[Slug\][$eq]=${slug}`);
-
-  const posts = await res.json();
-
-  return {
-    props: { post: posts.data[0] },
-    revalidate: 1,
+    props: {
+      evt: posts[0],
+    },
   };
 }
