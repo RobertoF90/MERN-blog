@@ -67,9 +67,9 @@ export default function Post({ post }) {
 //   };
 // }
 export async function getServerSideProps({ query: { slug } }) {
-  const res = await fetch(`${API_URL}/api/posts?slug=${slug}`);
+  console.log(API_URL);
+  const res = await fetch(`${API_URL}/api/posts?filters\[Slug\][$eq]=${slug}`);
   const posts = await res.json();
-  console.log(posts);
 
   return {
     props: {
