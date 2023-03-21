@@ -28,7 +28,7 @@ export default function Post({ post }) {
     <Layout>
       <div>
         <button>
-          <Link href={`/posts/edit/${post.id}`}>Edit</Link>
+          <Link href={`/posts/edit/${post.attributes.slug}`}>Edit</Link>
         </button>
         <button onClick={deleteEvent}>Delete</button>
       </div>

@@ -63,7 +63,7 @@ export default function EditPostPage({ post }) {
   };
 
   const imageUploaded = async (e) => {
-    const res = await fetch(`${API_URL}/api/posts/${post.id}?populate=*`);
+    const res = await fetch(`${API_URL}/api/posts/${post.attributes.slug}`);
     const { data } = await res.json();
     setImagePreview(data.attributes.image.data.attributes.url);
     setShowModal(false);
@@ -134,8 +134,8 @@ export default function EditPostPage({ post }) {
   );
 }
 
-export async function getServerSideProps({ params: { id } }) {
-  const res = await fetch(`${API_URL}/api/posts/${id}?populate=*`);
+export async function getServerSideProps({ query: { slug } }) {
+  const res = await fetch(`${API_URL}/api/posts/${slug}?populate=deep,10`);
   const post = await res.json();
 
   return {
