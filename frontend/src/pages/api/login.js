@@ -7,6 +7,7 @@ export default async (req, res) => {
     const strapiRes = await fetch(`${API_URL}/api/auth/local`, {
       method: 'POST',
       headers: {
+        Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -17,15 +18,17 @@ export default async (req, res) => {
 
     const data = await strapiRes.json();
 
-    console.log(data);
+    // console.log(data);
 
     if (strapiRes.ok) {
       // @todo - Set cookie
       res.status(200).json({ user: data.user });
     } else {
-      res
-        .status(data.statusCode)
-        .json({ message: data.message[0].messages[0].message });
+      res.status(data.error.status).json({ message: data.error.message });
+
+      // res
+      //   .status(data.statusCode)
+      //   .json({ message: data.message[0].messages[0].message });
     }
   } else {
     res.setHeader('Allow', ['POST']);

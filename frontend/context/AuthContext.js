@@ -15,33 +15,25 @@ export const AuthProvider = ({ children }) => {
 
   // Login user
   const login = async ({ email: identifier, password }) => {
-    try {
-      const res = await fetch(`${NEXT_URL}/api/login`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          identifier,
-          password,
-        }),
-      });
+    const res = await fetch(`${NEXT_URL}/api/login`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        identifier,
+        password,
+      }),
+    });
 
-      console.log(res);
+    const data = await res.json();
+    console.log(data);
 
-      const data = await res.json();
-
-      console.log(res.ok);
-
-      if (res.ok) {
-        setUser(data.user);
-      } else {
-        setError(data.message);
-        setError(null);
-      }
-    } catch (err) {
-      console.log(err);
+    if (res.ok) {
+      setUser(data.user);
+    } else {
+      setError(data.message);
     }
   };
   // Logout user
@@ -54,7 +46,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, error, register, login, logout }}>
+    <AuthContext.Provider
+      value={{ user, error, setError, register, login, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );
