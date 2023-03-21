@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import styles from './layout.module.css';
+import Header from './Header';
 
 export default function Layout({ title, description, keywords, children }) {
   return (
@@ -11,6 +12,8 @@ export default function Layout({ title, description, keywords, children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* <link rel="icon" href="/favicon.ico" /> */}
       </Head>
+      <Header></Header>
+
       <div className={styles.container}>{children}</div>
     </div>
   );

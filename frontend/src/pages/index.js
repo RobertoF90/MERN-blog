@@ -7,7 +7,6 @@ import { API_URL } from '@/config/index';
 export default function Home({ posts }) {
   return (
     <Layout>
-      <Header></Header>
       <main className={styles.main}>
         {posts.data.map((post) => (
           <PostItem key={post.id} post={post} />
