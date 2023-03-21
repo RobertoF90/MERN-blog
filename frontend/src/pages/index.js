@@ -17,12 +17,11 @@ export default function Home({ posts }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const res = await fetch(`${API_URL}/api/posts?populate=*`);
   const posts = await res.json();
 
   return {
     props: { posts },
-    revalidate: 1,
   };
 }
