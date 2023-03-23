@@ -134,9 +134,11 @@ export default function EditPostPage({ post }) {
   );
 }
 
-export async function getServerSideProps({ query: { slug } }) {
+export async function getServerSideProps({ query: { slug }, req }) {
   const res = await fetch(`${API_URL}/api/posts/${slug}?populate=deep,10`);
   const post = await res.json();
+
+  console.log(req.headers.cookie);
 
   return {
     props: {
