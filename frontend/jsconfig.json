@@ -3,6 +3,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/context/*": ["./context/*"],
+      "@/helpers/*": ["./helpers/*"],
     }
   }
 }
