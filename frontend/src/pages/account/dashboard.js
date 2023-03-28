@@ -15,9 +15,14 @@ export default function DashboardPage({ posts }) {
         <h1>Dashboard</h1>
         <h3>My Posts</h3>
 
-        {posts.map((post) => (
-          <DashboardPost key={post.id} post={post} handleDelete={deletePost} />
-        ))}
+        {posts &&
+          posts.map((post) => (
+            <DashboardPost
+              key={post.id}
+              post={post}
+              handleDelete={deletePost}
+            />
+          ))}
       </div>
     </Layout>
   );
