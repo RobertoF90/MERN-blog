@@ -1,4 +1,5 @@
 import moment from 'moment/moment';
+import { parseCookies } from '@/helpers/index';
 import { FaImage } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,7 +13,7 @@ import styles from '@/styles/Form.module.css';
 import Image from 'next/image';
 import ImageUpload from '@/components/ImageUpload';
 
-export default function EditPostPage({ post }) {
+export default function EditPostPage({ post, token }) {
   const [values, setValues] = useState({
     title: post.attributes.title,
     text: post.attributes.text,
@@ -45,11 +46,15 @@ export default function EditPostPage({ post }) {
       method: 'PUT',
       headers: {
         'content-type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ data: { ...values } }),
     });
 
     if (!res.ok) {
+      if (res.status === 403 || res.status === 401) {
+        toast.error('Unauthorized');
+      }
       toast.error('Something Went Wrong');
     } else {
       const { data } = await res.json();
@@ -135,14 +140,15 @@ export default function EditPostPage({ post }) {
 }
 
 export async function getServerSideProps({ query: { slug }, req }) {
+  const { token } = parseCookies(req);
+
   const res = await fetch(`${API_URL}/api/posts/${slug}?populate=deep,10`);
   const post = await res.json();
-
-  console.log(req.headers.cookie);
 
   return {
     props: {
       post: post.data,
+      token,
     },
   };
 }

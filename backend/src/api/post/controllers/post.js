@@ -40,27 +40,20 @@ module.exports = createCoreController("api::post.post", ({ strapi }) => ({
     };
 
     return super.update(ctx);
-    // const sanitizedEvents = await this.sanitizeOutput(data, ctx);
-
-    // return this.transformResponse(sanitizedEvents);
   },
 
   // Delete a user event
 
   async delete(ctx) {
-    const { id } = ctx.params;
+    console.log("deleting");
+    const user = ctx.state.user;
 
-    const [posts] = await strapi.services.posts.find({
-      id: ctx.params.id,
-      "user.id": ctx.state.user.id,
-    });
+    ctx.query.filters = {
+      ...(ctx.query.filters || {}),
+      user: user.id,
+    };
 
-    if (!posts) {
-      return ctx.unauthorized(`You can't update this entry`);
-    }
-
-    const entity = await strapi.services.posts.delete({ id });
-    return sanitizeEntity(entity, { model: strapi.models.posts });
+    return super.delete(ctx);
   },
 
   async findOne(ctx) {

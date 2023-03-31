@@ -8,21 +8,6 @@ import Link from 'next/link';
 
 export default function Post({ post }) {
   const router = useRouter();
-  const deleteEvent = async (e) => {
-    if (confirm('Are you sure?')) {
-      const res = await fetch(`${API_URL}/api/posts/${post.id}`, {
-        method: 'DELETE',
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        toast.error(data.message);
-      } else {
-        router.push('/');
-      }
-    }
-  };
 
   return (
     <Layout>
@@ -30,7 +15,6 @@ export default function Post({ post }) {
         <button>
           <Link href={`/posts/edit/${post.attributes.slug}`}>Edit</Link>
         </button>
-        <button onClick={deleteEvent}>Delete</button>
       </div>
       <h1>{post.attributes.title}</h1>
 
