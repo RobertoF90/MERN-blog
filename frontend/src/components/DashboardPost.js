@@ -11,7 +11,7 @@ export default function DashboardPost({ post, handleDelete }) {
         </Link>
       </h4>
 
-      <Link href={`/posts/edit/${post.id}`}>
+      <Link href={`/posts/edit/${post.attributes.slug}`}>
         <div className={styles.edit}>
           <FaPencilAlt /> <span>Edit Post</span>
         </div>

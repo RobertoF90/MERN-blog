@@ -1,7 +1,6 @@
 import { createContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { NEXT_URL } from '@/config';
-import { NextURL } from 'next/dist/server/web/next-url';
 
 const AuthContext = createContext();
 
@@ -52,7 +51,6 @@ export const AuthProvider = ({ children }) => {
     });
 
     const data = await res.json();
-    console.log(data);
 
     if (res.ok) {
       setUser(data.user);
@@ -78,6 +76,7 @@ export const AuthProvider = ({ children }) => {
     const data = await res.json();
 
     if (res.ok) {
+      console.log(data.user);
       setUser(data.user);
     } else {
       setUser(null);

@@ -1,4 +1,5 @@
 import { ToastContainer, toast } from 'react-toastify';
+import { parseCookies } from '@/helpers/index';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
@@ -7,7 +8,7 @@ import Layout from '@/components/layout';
 import { API_URL } from '@/config';
 import styles from '@/styles/Form.module.css';
 
-function AddPostPage() {
+function AddPostPage({ token }) {
   const [values, setValues] = useState({
     title: '',
     text: '',
@@ -31,6 +32,7 @@ function AddPostPage() {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ data: { ...values } }),
     });
@@ -82,6 +84,16 @@ function AddPostPage() {
       </form>
     </Layout>
   );
+}
+
+export async function getServerSideProps({ req }) {
+  const { token } = parseCookies(req);
+
+  return {
+    props: {
+      token,
+    },
+  };
 }
 
 export default AddPostPage;
