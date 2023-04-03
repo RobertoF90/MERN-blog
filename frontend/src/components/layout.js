@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import styles from './layout.module.css';
 import Header from './Header';
+import SideMenu from './SideMenu';
 
 export default function Layout({ title, description, keywords, children }) {
   return (
@@ -14,7 +15,11 @@ export default function Layout({ title, description, keywords, children }) {
       </Head>
       <Header></Header>
 
-      <div className={styles.container}>{children}</div>
+      <main className={styles.main}>
+        <SideMenu />
+
+        <div className={styles.container}>{children}</div>
+      </main>
     </div>
   );
 }

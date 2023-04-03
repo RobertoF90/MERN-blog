@@ -133,7 +133,11 @@ export default function EditPostPage({ post, token }) {
       </div>
 
       <Modal show={showModal} onClose={() => setShowModal(false)}>
-        <ImageUpload postId={post.id} imageUploaded={imageUploaded} />
+        <ImageUpload
+          postId={post.id}
+          imageUploaded={imageUploaded}
+          token={token}
+        />
       </Modal>
     </Layout>
   );
