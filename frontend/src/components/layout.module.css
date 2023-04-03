@@ -6,5 +6,5 @@
 
 .main {
   display: grid;
-  grid-template-columns: 30fr 60fr;
+  grid-template-columns: 20fr 80fr;
 }
