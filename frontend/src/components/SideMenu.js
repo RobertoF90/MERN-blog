@@ -1,4 +1,4 @@
-import styles from '@/styles/SideMenu.module.css';
+import styles from '@/styles/Sidemenu.module.css';
 
 function SideMenu() {
   return (
